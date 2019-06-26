@@ -4,7 +4,7 @@ import './App.css';
 import TodoList, {
   SORT_ORDER_COMPLETED,
   SORT_ORDER_TITLE,
-  SORT_ORDER_USER
+  SORT_ORDER_USER,
 } from './TodoList';
 import { getUsers, getTodos } from './api';
 
@@ -25,17 +25,23 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    const todos = await getTodos();
-    const users = await getUsers();
+    const [todos, users] = await Promise.all([
+      getTodos(),
+      getUsers(),
+    ]);
 
     const items = this.getTodosWithUsers(todos, users);
 
-    setTimeout(() => {
+    this.timerId = setTimeout(() => {
       this.setState({
         todos: items,
         isLoaded: true,
       });
     }, 2000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timerId);
   }
 
   // eslint-disable-next-line class-methods-use-this
