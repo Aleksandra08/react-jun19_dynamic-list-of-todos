@@ -24,7 +24,7 @@ class App extends React.Component {
     };
   }
 
-  async componentDidMount() {
+  loadData = async () => {
     const [todos, users] = await Promise.all([
       getTodos(),
       getUsers(),
@@ -38,7 +38,7 @@ class App extends React.Component {
         isLoaded: true,
       });
     }, 2000);
-  }
+  };
 
   componentWillUnmount() {
     clearTimeout(this.timerId);
@@ -81,7 +81,7 @@ class App extends React.Component {
             onSort={this.handleSort}
           />
         ) : (
-          <div>Loading...</div>
+          <button onClick={this.loadData}>Load</button>
         )}
       </div>
     );
