@@ -2,6 +2,7 @@ import React from 'react';
 
 const TodoItem = ({ item }) => (
   <li>
+    <b>{item.user.name}</b>
     {item.title}
   </li>
 );
