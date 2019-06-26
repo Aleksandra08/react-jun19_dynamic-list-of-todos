@@ -2,16 +2,7 @@ import React from 'react';
 import './App.css';
 
 import TodoList from './TodoList';
-
-const getTodos = () => {
-  return fetch('https://jsonplaceholder.typicode.com/todos')
-    .then(res => res.json());
-};
-
-const getUsers = () => {
-  return fetch('https://jsonplaceholder.typicode.com/users')
-    .then(res => res.json());
-};
+import { getUsers, getTodos } from './api';
 
 
 class App extends React.Component {
@@ -36,7 +27,7 @@ class App extends React.Component {
         todos: items,
         isLoaded: true,
       });
-    }, 5000);
+    }, 2000);
   }
 
   // eslint-disable-next-line class-methods-use-this
