@@ -20,13 +20,13 @@ const TodoItem = ({ item }) => (
   </tr>
 );
 
-const TodoList = ({ items }) => (
+const TodoList = ({ items, onSort }) => (
   <table className="TodoList">
     <thead>
       <tr>
-        <th>done</th>
-        <th>title</th>
-        <th>user</th>
+        <th onClick={() => onSort('completed')}>done</th>
+        <th onClick={() => onSort('title')}>title</th>
+        <th onClick={() => onSort('user')}>user</th>
       </tr>
     </thead>
     <tbody>
