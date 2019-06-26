@@ -1,12 +1,16 @@
 import React from 'react';
 
+const TodoItem = ({ item }) => (
+  <li>
+    {item.title}
+  </li>
+);
+
 const TodoList = ({ items }) => (
   <div className="TodoList">
     <ul>
       {items.map(item => (
-        <li key={item.id}>
-          {item.title}
-        </li>
+        <TodoItem key={item.id} item={item} />
       ))}
     </ul>
   </div>
