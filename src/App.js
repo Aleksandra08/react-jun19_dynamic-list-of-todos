@@ -1,7 +1,11 @@
 import React from 'react';
 import './App.css';
 
-import TodoList from './TodoList';
+import TodoList, {
+  SORT_ORDER_COMPLETED,
+  SORT_ORDER_TITLE,
+  SORT_ORDER_USER
+} from './TodoList';
 import { getUsers, getTodos } from './api';
 
 
@@ -10,7 +14,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      sortField: 'title',
+      sortField: SORT_ORDER_TITLE,
       isLoaded: false,
       todos: [],
     };
@@ -44,12 +48,12 @@ class App extends React.Component {
 
   sortTodos(todos, sortField) {
     const callbackMap = {
-      title: (a, b) => a.title.localeCompare(b.title),
-      user: (a, b) => a.user.name.localeCompare(b.user.name),
-      completed: (a, b) => a.completed - b.completed,
+      [SORT_ORDER_TITLE]: (a, b) => a.title.localeCompare(b.title),
+      [SORT_ORDER_USER]: (a, b) => a.user.name.localeCompare(b.user.name),
+      [SORT_ORDER_COMPLETED]: (a, b) => a.completed - b.completed,
     };
 
-    const callback = callbackMap[sortField] || callbackMap.title;
+    const callback = callbackMap[sortField] || callbackMap[SORT_ORDER_TITLE];
 
     return todos.sort(callback);
   }

@@ -20,13 +20,17 @@ const TodoItem = ({ item }) => (
   </tr>
 );
 
+export const SORT_ORDER_COMPLETED = 'completed';
+export const SORT_ORDER_TITLE = 'title';
+export const SORT_ORDER_USER = 'user';
+
 const TodoList = ({ items, onSort }) => (
   <table className="TodoList">
     <thead>
       <tr>
-        <th onClick={() => onSort('completed')}>done</th>
-        <th onClick={() => onSort('title')}>title</th>
-        <th onClick={() => onSort('user')}>user</th>
+        <th onClick={() => onSort(SORT_ORDER_COMPLETED)}>done</th>
+        <th onClick={() => onSort(SORT_ORDER_TITLE)}>title</th>
+        <th onClick={() => onSort(SORT_ORDER_USER)}>user</th>
       </tr>
     </thead>
     <tbody>
