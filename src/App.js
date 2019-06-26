@@ -1,24 +1,42 @@
 import React from 'react';
 import './App.css';
 
-import todosFromServer from './todos';
-import usersFromServer from './users';
 import TodoList from './TodoList';
+
+const getTodos = () => {
+  return fetch('https://jsonplaceholder.typicode.com/todos')
+    .then(res => res.json());
+};
+
+const getUsers = () => {
+  return fetch('https://jsonplaceholder.typicode.com/users')
+    .then(res => res.json());
+};
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      isLoaded: false,
       todos: [],
     };
   }
 
 
-  componentDidMount() {
-    this.setState({
-      todos: this.getTodosWithUsers(todosFromServer, usersFromServer),
-    });
+  async componentDidMount() {
+    const todos = await getTodos();
+    const users = await getUsers();
+
+    const items = this.getTodosWithUsers(todos, users);
+
+    setTimeout(() => {
+      this.setState({
+        todos: items,
+        isLoaded: true,
+      });
+    }, 5000);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -30,7 +48,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { todos } = this.state;
+    const { todos, isLoaded } = this.state;
 
     return (
       <div className="App">
@@ -39,7 +57,11 @@ class App extends React.Component {
           {todos.length}
         </h1>
 
-        <TodoList items={todos} />
+        { isLoaded ? (
+          <TodoList items={todos} />
+        ) : (
+          <div>Loading...</div>
+        )}
       </div>
     );
   }
